@@ -1,1 +1,3 @@
-# com.adcimon.unity-extension
+# Unity Extension
+
+Unity library with core functionalities.
