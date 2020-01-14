@@ -1,0 +1,17 @@
+{
+    "name": "Adcimon.UnityExtension.Editor",
+    "references": [
+        "GUID:0a217fbfbd3a43947977acd752876a5e"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
