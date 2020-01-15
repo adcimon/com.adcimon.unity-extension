@@ -13,7 +13,7 @@ public delegate float EasingFunction( float t, float b, float c, float d );
 public static class EasingFunctions
 {
     /// <summary>
-    /// Simple linear tweening with no easing.
+    /// Simple linear with no easing.
     /// </summary>
     public static float Linear( float t, float b, float c, float d )
     {
