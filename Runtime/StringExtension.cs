@@ -26,4 +26,20 @@ public static class StringExtension
         string hex = ColorUtility.ToHtmlStringRGBA(color);
         return "<color=#" + hex + ">" + str + "</color>";
     }
+
+    /// <summary>
+    /// Adds a bold tag to the specified string.
+    /// </summary>
+    public static string Bold( this string str )
+    {
+        return "<b>" + str + "</b>";
+    }
+
+    /// <summary>
+    /// Adds an italic tag to the specified string.
+    /// </summary>
+    public static string Italic( this string str )
+    {
+        return "<i>" + str + "</i>";
+    }
 }
