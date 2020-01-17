@@ -3,17 +3,6 @@
 public static class MathExtension
 {
     /// <summary>
-    /// Calculates the squared distance between a and b.
-    /// </summary>
-    public static float SqrDistance( Vector3 a, Vector3 b )
-    {
-        float x = b.x - a.x;
-        float y = b.y - a.y;
-        float z = b.z - a.z;
-        return x * x + y * y + z * z;
-    }
-
-    /// <summary>
     /// Calculates the normal vector of the plane defined by the points p0, p1 and p2.
     /// </summary>
     public static Vector3 Normal( Vector3 p0, Vector3 p1, Vector3 p2 )
@@ -26,9 +15,9 @@ public static class MathExtension
     /// </summary>
     public static float TriangleArea( Vector3 p0, Vector3 p1, Vector3 p2 )
     {
-        float a = SqrDistance(p0, p1);
-        float b = SqrDistance(p1, p2);
-        float c = SqrDistance(p2, p0);
+        float a = Vector3Extension.SqrDistance(p0, p1);
+        float b = Vector3Extension.SqrDistance(p1, p2);
+        float c = Vector3Extension.SqrDistance(p2, p0);
         return Mathf.Sqrt((2 * a * b + 2 * b * c + 2 * c * a - a * a - b * b - c * c) / 16);
     }
 
@@ -54,14 +43,13 @@ public static class MathExtension
     }
 
     /// <summary>
-    /// Checks if the ray intersects the triangle defined by the points p0, p1 and p2.
-    /// Implementation of the Möller–Trumbore intersection algorithm.
-    /// Reference: https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm
+    /// Calculates the ray to triangle intersection.
+    /// Reference: Möller–Trumbore intersection algorithm (https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm).
     /// </summary>
-    public static bool RayIntersectsTriangle( Ray ray, Vector3 p0, Vector3 p1, Vector3 p2, out float distance, out Vector3 point )
+    public static bool IntersectRayTriangle( Ray ray, Vector3 p0, Vector3 p1, Vector3 p2, out float intersectionDistance, out Vector3 intersectionPoint )
     {
-        distance = 0;
-        point = Vector3.zero;
+        intersectionDistance = 0;
+        intersectionPoint = Vector3.zero;
 
         Vector3 v01 = p1 - p0;
         Vector3 v02 = p2 - p0;
@@ -92,14 +80,38 @@ public static class MathExtension
         float t = f * Vector3.Dot(v02, q);
         if( t > Mathf.Epsilon )
         {
-            distance = t;
-            point.x = u * p1.x + v * p2.x + (1 - (u + v)) * p0.x;
-            point.y = u * p1.y + v * p2.y + (1 - (u + v)) * p0.y;
-            point.z = u * p1.z + v * p2.z + (1 - (u + v)) * p0.z;
+            intersectionDistance = t;
+            intersectionPoint = ray.origin + ray.direction * t;
             return true;
         }
 
         // This means that there is a line intersection but not a ray intersection.
         return false;
+    }
+
+    /// <summary>
+    /// Calculates the ray to AABB intersections.
+    /// </summary>
+    public static bool IntersectRayAABB( Ray ray, Bounds bounds, out float tEntry, out Vector3 pointEntry, out float tExit, out Vector3 pointExit )
+    {
+        Vector3 rayDirectionInverse = Vector3Extension.Reciprocal(ray.direction);
+
+        // Perform ray-slab intersection (component-wise).
+        Vector3 t0 = Vector3.Scale(bounds.min, rayDirectionInverse) - Vector3.Scale(ray.origin, rayDirectionInverse);
+        Vector3 t1 = Vector3.Scale(bounds.max, rayDirectionInverse) - Vector3.Scale(ray.origin, rayDirectionInverse);
+
+        // Find the closest/farthest distance (component-wise).
+        Vector3 tSlabEntry = Vector3.Min(t0, t1);
+        Vector3 tSlabExit = Vector3.Max(t0, t1);
+
+        // Find the farthest entry and the nearest exit.
+        tEntry = Mathf.Max(tSlabEntry.x, tSlabEntry.y, tSlabEntry.z);
+        tExit = Mathf.Min(tSlabExit.x, tSlabExit.y, tSlabExit.z);
+
+        // Calculate the points.
+        pointEntry = ray.origin + ray.direction * tEntry;
+        pointExit = ray.origin + ray.direction * tExit;
+
+        return (tEntry < tExit);
     }
 }

@@ -102,7 +102,7 @@ float3 ProjectPointOnPlane( float3 p, float3 planePosition, float3 planeNormal )
 
 // Calculates the ray to plane intersection.
 // Returns: Whether the ray intersected the plane.
-bool IntersectRayPlane( float3 rayOrigin, float3 rayDirection, float3 planeOrigin, float3 planeNormal, out float intersectionLength, out float3 intersectionPoint )
+bool IntersectRayPlane( float3 rayOrigin, float3 rayDirection, float3 planeOrigin, float3 planeNormal, out float intersectionDistance, out float3 intersectionPoint )
 {
 	static const float epsilon = 0.0000001;
 
@@ -114,8 +114,8 @@ bool IntersectRayPlane( float3 rayOrigin, float3 rayDirection, float3 planeOrigi
 		return false;
 	}
 
-	intersectionLength = dot(planeNormal, (planeOrigin - rayOrigin)) / denominator;
-	intersectionPoint = rayOrigin + rayDirection * intersectionLength;
+	intersectionDistance = dot(planeNormal, (planeOrigin - rayOrigin)) / denominator;
+	intersectionPoint = rayOrigin + rayDirection * intersectionDistance;
 
 	return true;
 }
@@ -123,11 +123,11 @@ bool IntersectRayPlane( float3 rayOrigin, float3 rayDirection, float3 planeOrigi
 // Calculates the ray to triangle intersection.
 // Returns: Whether the ray intersected the triangle.
 // Reference: Möller–Trumbore intersection algorithm (https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm).
-bool IntersectRayTriangle( float3 rayOrigin, float3 rayDirection, float3 p0, float3 p1, float3 p2, out float intersectionLength, out float3 intersectionPoint )
+bool IntersectRayTriangle( float3 rayOrigin, float3 rayDirection, float3 p0, float3 p1, float3 p2, out float intersectionDistance, out float3 intersectionPoint )
 {
 	static const float epsilon = 0.0000001;
 
-	intersectionLength = 0;
+	intersectionDistance = 0;
 	intersectionPoint = float3(0, 0, 0);
 
 	float3 v01 = p1 - p0;
@@ -159,8 +159,8 @@ bool IntersectRayTriangle( float3 rayOrigin, float3 rayDirection, float3 p0, flo
 	float t = f * dot(v02, q);
 	if( t > epsilon )
 	{
-		intersectionLength = t;
-		intersectionPoint = rayOrigin + rayDirection * t;
+		intersectionDistance = t;
+		intersectionPoint = rayOrigin + rayDirection * intersectionDistance;
 		return true;
 	}
 
@@ -170,7 +170,7 @@ bool IntersectRayTriangle( float3 rayOrigin, float3 rayDirection, float3 p0, flo
 
 // Calculates the ray to AABB intersections.
 // Returns: Whether the ray intersected the AABB.
-bool IntersectRayAABB( float3 rayOrigin, float3 rayDirection, float3 boxMin, float3 boxMax, float tMin, float tMax, out float tEntr, out float3 pointEntr, out float tExit, out float3 pointExit )
+bool IntersectRayAABB( float3 rayOrigin, float3 rayDirection, float3 boxMin, float3 boxMax, out float tEntry, out float3 pointEntry, out float tExit, out float3 pointExit )
 {
 	float3 rayDirectionInverse = rcp(rayDirection);
 
@@ -179,22 +179,18 @@ bool IntersectRayAABB( float3 rayOrigin, float3 rayDirection, float3 boxMin, flo
 	float3 t1 = boxMax * rayDirectionInverse - (rayOrigin * rayDirectionInverse);
 
 	// Find the closest/farthest distance (component-wise).
-	float3 tSlabEntr = min(t0, t1);
+	float3 tSlabEntry = min(t0, t1);
 	float3 tSlabExit = max(t0, t1);
 
 	// Find the farthest entry and the nearest exit.
-	tEntr = Max3(tSlabEntr.x, tSlabEntr.y, tSlabEntr.z);
+	tEntry = Max3(tSlabEntry.x, tSlabEntry.y, tSlabEntry.z);
 	tExit = Min3(tSlabExit.x, tSlabExit.y, tSlabExit.z);
 
-	// Clamp to the range.
-	tEntr = max(tEntr, tMin);
-	tExit = min(tExit, tMax);
-
 	// Calculate the points.
-	pointEntr = rayOrigin + rayDirection * tEntr;
+	pointEntry = rayOrigin + rayDirection * tEntry;
 	pointExit = rayOrigin + rayDirection * tExit;
 
-	return (tEntr < tExit);
+	return (tEntry < tExit);
 }
 
 #endif
