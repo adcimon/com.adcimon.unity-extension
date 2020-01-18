@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public static class TransformExtension
 {
@@ -65,5 +66,97 @@ public static class TransformExtension
         {
             MonoBehaviour.Destroy(transform.GetChild(i).gameObject, time);
         }
+    }
+
+    /// <summary>
+    /// Returns the transform with the highest y position.
+    /// </summary>
+    public static Transform GetHigest( this List<Transform> transforms )
+    {
+        if( transforms.Count == 0 )
+        {
+            return null;
+        }
+
+        Transform highest = transforms[0];
+        for( int i = 0; i < transforms.Count; i++ )
+        {
+            Transform transform = transforms[i];
+            if( transform.position.y > highest.position.y )
+            {
+                highest = transform;
+            }
+        }
+
+        return highest;
+    }
+
+    /// <summary>
+    /// Returns the transform with the lowest y position.
+    /// </summary>
+    public static Transform GetLowest( this List<Transform> transforms )
+    {
+        if( transforms.Count == 0 )
+        {
+            return null;
+        }
+
+        Transform lowest = transforms[0];
+        for( int i = 0; i < transforms.Count; i++ )
+        {
+            Transform transform = transforms[i];
+            if( transform.position.y < lowest.position.y )
+            {
+                lowest = transform;
+            }
+        }
+
+        return lowest;
+    }
+
+    /// <summary>
+    /// Returns the transform with the highest y position.
+    /// </summary>
+    public static Transform GetHigest( this Transform[] transforms )
+    {
+        if( transforms == null || transforms.Length == 0 )
+        {
+            return null;
+        }
+
+        Transform highest = transforms[0];
+        for( int i = 0; i < transforms.Length; i++ )
+        {
+            Transform transform = transforms[i];
+            if( transform.position.y > highest.position.y )
+            {
+                highest = transform;
+            }
+        }
+
+        return highest;
+    }
+
+    /// <summary>
+    /// Returns the transform with the lowest y position.
+    /// </summary>
+    public static Transform GetLowest( this Transform[] transforms )
+    {
+        if( transforms == null || transforms.Length == 0 )
+        {
+            return null;
+        }
+
+        Transform lowest = transforms[0];
+        for( int i = 0; i < transforms.Length; i++ )
+        {
+            Transform transform = transforms[i];
+            if( transform.position.y < lowest.position.y )
+            {
+                lowest = transform;
+            }
+        }
+
+        return lowest;
     }
 }

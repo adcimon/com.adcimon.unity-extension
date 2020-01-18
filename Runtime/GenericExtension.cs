@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Linq;
 
-public static class ObjectExtension
+public static class GenericExtension
 {
     /// <summary>
     /// Determines whether the object exists as an element in the specified array.
     /// </summary>
     public static bool IsIn<T>( this T target, params T[] array )
     {
-        if( target == null )
-        {
-            return false;
-        }
-
         return array.Contains(target);
     }
 

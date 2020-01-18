@@ -20,4 +20,12 @@ public static class Vector3Extension
     {
         return new Vector3(1.0f / v.x, 1.0f / v.y, 1.0f / v.z);
     }
+
+    /// <summary>
+    /// Returns the absolute value of the vector.
+    /// </summary>
+    public static Vector3 Absolute( Vector3 v )
+    {
+        return new Vector3(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z));
+    }
 }
