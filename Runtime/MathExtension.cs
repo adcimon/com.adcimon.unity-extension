@@ -3,6 +3,26 @@
 public static class MathExtension
 {
     /// <summary>
+    /// Composes a floating point value with the magnitude of x and the sign of s.
+    /// </summary>
+    public static float CopySign( float x, float s )
+    {
+        return (s >= 0) ? Mathf.Abs(x) : -Mathf.Abs(x);
+    }
+
+    /// <summary>
+    /// Solves the quadratic equation of the form: a*t^2 + b*t + c = 0.
+    /// </summary>
+    public static bool SolveQuadraticEquation( float a, float b, float c, out Vector2 roots )
+    {
+        float d = b * b - 4 * a * c;
+        float q = -0.5f * (b + CopySign(Mathf.Sqrt(d), b));
+        roots = new Vector2(q / a, c / q);
+
+        return (d >= 0);
+    }
+
+    /// <summary>
     /// Calculates the normal vector of the plane defined by the points p0, p1 and p2.
     /// </summary>
     public static Vector3 Normal( Vector3 p0, Vector3 p1, Vector3 p2 )
@@ -18,7 +38,23 @@ public static class MathExtension
         float a = Vector3Extension.SqrDistance(p0, p1);
         float b = Vector3Extension.SqrDistance(p1, p2);
         float c = Vector3Extension.SqrDistance(p2, p0);
-        return Mathf.Sqrt((2 * a * b + 2 * b * c + 2 * c * a - a * a - b * b - c * c) / 16);
+        return Mathf.Sqrt((2*a*b + 2*b*c + 2*c*a - a*a - b*b - c*c) / 16);
+    }
+
+    /// <summary>
+    /// Calculates the distance from the plane to the point along the normal.
+    /// </summary>
+    public static float DistanceFromPlane( Vector3 p, Vector3 planePosition, Vector3 planeNormal )
+    {
+        return Vector3.Dot(p - planePosition, planeNormal);
+    }
+
+    /// <summary>
+    /// Projects a point on a plane.
+    /// </summary>
+    public static Vector3 ProjectPointOnPlane( Vector3 p, Vector3 planePosition, Vector3 planeNormal )
+    {
+        return p - (Vector3.Dot(p - planePosition, planeNormal) * planeNormal);
     }
 
     /// <summary>
@@ -32,7 +68,7 @@ public static class MathExtension
     }
 
     /// <summary>
-    /// Calculates the point in the sphere defined by the origin, radius and 2 angles for the latitude and longitude.
+    /// Calculates the point in the sphere defined by the origin, radius and 2 angles for the latitude and longitude in degrees.
     /// </summary>
     public static Vector3 PointInSphere( Vector3 origin, float radius, float latitudeAngle, float longitudeAngle )
     {
@@ -43,11 +79,37 @@ public static class MathExtension
     }
 
     /// <summary>
+    /// Calculates the ray to plane intersection.
+    /// </summary>
+    public static bool IntersectRayPlane( Ray ray, Vector3 planeOrigin, Vector3 planeNormal, out float intersectionDistance, out Vector3 intersectionPoint )
+    {
+        const float epsilon = 0.0000001f;
+
+        intersectionDistance = 0;
+        intersectionPoint = Vector3.zero;
+
+        float denominator = Vector3.Dot(ray.direction, planeNormal);
+
+        // Check if the ray is parallel to the plane or pointing away from the plane.
+        if( denominator < epsilon )
+        {
+            return false;
+        }
+
+        intersectionDistance = Vector3.Dot(planeNormal, (planeOrigin - ray.origin)) / denominator;
+        intersectionPoint = ray.origin + ray.direction * intersectionDistance;
+
+        return true;
+    }
+
+    /// <summary>
     /// Calculates the ray to triangle intersection.
     /// Reference: Möller–Trumbore intersection algorithm (https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm).
     /// </summary>
     public static bool IntersectRayTriangle( Ray ray, Vector3 p0, Vector3 p1, Vector3 p2, out float intersectionDistance, out Vector3 intersectionPoint )
     {
+        const float epsilon = 0.0000001f;
+
         intersectionDistance = 0;
         intersectionPoint = Vector3.zero;
 
@@ -56,7 +118,7 @@ public static class MathExtension
 
         Vector3 h = Vector3.Cross(ray.direction, v02);
         float a = Vector3.Dot(v01, h);
-        if( a > -Mathf.Epsilon && a < Mathf.Epsilon )
+        if( a > -epsilon && a < epsilon )
         {
             return false;
         }
@@ -78,7 +140,7 @@ public static class MathExtension
 
         // At this stage we can compute t to find out where the intersection point is on the line.
         float t = f * Vector3.Dot(v02, q);
-        if( t > Mathf.Epsilon )
+        if( t > epsilon )
         {
             intersectionDistance = t;
             intersectionPoint = ray.origin + ray.direction * t;

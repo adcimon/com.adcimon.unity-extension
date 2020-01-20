@@ -15,18 +15,6 @@ float Max3( float x, float y, float z )
 	return max(max(x, y), z);
 }
 
-// Converts degrees to radians.
-float DegToRad( float degrees )
-{
-	return degrees * (PI / 180.0);
-}
-
-// Converts radians to degrees.
-float RadToDeg( float radians )
-{
-	return radians * (180.0 / PI);
-}
-
 // Composes a floating point value with the magnitude of x and the sign of s.
 float CopySign( float x, float s )
 {
@@ -45,59 +33,58 @@ bool SolveQuadraticEquation( float a, float b, float c, out float2 roots )
 	return (d >= 0);
 }
 
-// Creates a translation matrix.
-float4x4 TranslationMatrix( float3 translation )
+// Calculates the squared distance between a and b.
+float SqrDistance( float3 a, float3 b )
 {
-	return float4x4(
-		1, 0, 0, translation.x,
-		0, 1, 0, translation.y,
-		0, 0, 1, translation.z,
-		0, 0, 0, 1
-		);
+	float x = b.x - a.x;
+	float y = b.y - a.y;
+	float z = b.z - a.z;
+	return x * x + y * y + z * z;
 }
 
-// Creates a rotation matrix.
-float4x4 RotationMatrix( float angle, float3 axis )
+// Calculates the normal vector of the plane defined by the points p0, p1 and p2.
+float3 Normal( float3 p0, float3 p1, float3 p2 )
 {
-	float c, s;
-	sincos(angle, s, c);
-
-	float t = 1 - c;
-	float x = axis.x;
-	float y = axis.y;
-	float z = axis.z;
-
-	return float4x4(
-		t*x*x + c,		t*x*y - s*z,	t*x*z + s*y,	0,
-		t*x*y + s*z,	t*y*y + c,		t*y*z - s*x,	0,
-		t*x*z - s*y,	t*y*z + s*x,	t*z*z + c,		0,
-		0,				0,				0,				1
-		);
+	return normalize(cross((p1 - p0), (p2 - p0)));
 }
 
-// Creates a scaling matrix.
-float4x4 ScalingMatrix( float3 scale )
+// Calculates the area of the triangle defined by the points p0, p1 and p2.
+float TriangleArea( float3 p0, float3 p1, float3 p2 )
 {
-	return float4x4(
-		scale.x,	0,			0,			0,
-		0,			scale.y,	0,			0,
-		0,			0,			scale.z,	0,
-		0,			0,			0,			1
-		);
+	float a = SqrDistance(p0, p1);
+	float b = SqrDistance(p1, p2);
+	float c = SqrDistance(p2, p0);
+	return sqrt((2*a*b + 2*b*c + 2*c*a - a*a - b*b - c*c) / 16);
 }
 
 // Calculates the distance from the plane to the point along the normal.
 // Returns: Distance, positive is front, negative is back.
 float DistanceFromPlane( float3 p, float3 planePosition, float3 planeNormal )
 {
-	float NdotP = dot(planeNormal, planePosition);
-	return dot(float4(p, 1), float4(planeNormal, -NdotP));
+	return dot(p - planePosition, planeNormal);
 }
 
-// Projets a point on a plane.
+// Projects a point on a plane.
 float3 ProjectPointOnPlane( float3 p, float3 planePosition, float3 planeNormal )
 {
 	return p - (dot(p - planePosition, planeNormal) * planeNormal);
+}
+
+// Calculates the point in the circumference defined by the origin, radius and angle in degrees.
+float2 PointInCircumference( float2 origin, float radius, float angle )
+{
+	float x = radius * cos(angle * DEG_TO_RAD) + origin.x;
+	float y = radius * sin(angle * DEG_TO_RAD) + origin.y;
+	return float2(x, y);
+}
+
+// Calculates the point in the sphere defined by the origin, radius and 2 angles for the latitude and longitude in degrees.
+float3 PointInSphere( float3 origin, float radius, float latitudeAngle, float longitudeAngle )
+{
+	float x = radius * cos(latitudeAngle * DEG_TO_RAD) * sin(longitudeAngle * DEG_TO_RAD) + origin.x;
+	float y = radius * sin(latitudeAngle * DEG_TO_RAD) * sin(longitudeAngle * DEG_TO_RAD) + origin.y;
+	float z = radius * cos(longitudeAngle * DEG_TO_RAD) + origin.z;
+	return float3(x, y, z);
 }
 
 // Calculates the ray to plane intersection.
@@ -126,9 +113,6 @@ bool IntersectRayPlane( float3 rayOrigin, float3 rayDirection, float3 planeOrigi
 bool IntersectRayTriangle( float3 rayOrigin, float3 rayDirection, float3 p0, float3 p1, float3 p2, out float intersectionDistance, out float3 intersectionPoint )
 {
 	static const float epsilon = 0.0000001;
-
-	intersectionDistance = 0;
-	intersectionPoint = float3(0, 0, 0);
 
 	float3 v01 = p1 - p0;
 	float3 v02 = p2 - p0;
