@@ -15,6 +15,27 @@ float Max3( float x, float y, float z )
 	return max(max(x, y), z);
 }
 
+// Map a value between one range to another.
+float Map( float value, float inMin, float inMax, float outMin, float outMax )
+{
+	return outMin + (outMax - outMin) * (value - inMin) / (inMax - inMin);
+}
+
+float2 Map2( float2 value, float2 inMin, float2 inMax, float2 outMin, float2 outMax )
+{
+	return outMin + (outMax - outMin) * (value - inMin) / (inMax - inMin);
+}
+
+float3 Map3( float3 value, float3 inMin, float3 inMax, float3 outMin, float3 outMax )
+{
+	return outMin + (outMax - outMin) * (value - inMin) / (inMax - inMin);
+}
+
+float4 Map4( float4 value, float4 inMin, float4 inMax, float4 outMin, float4 outMax )
+{
+	return outMin + (outMax - outMin) * (value - inMin) / (inMax - inMin);
+}
+
 // Composes a floating point value with the magnitude of x and the sign of s.
 float CopySign( float x, float s )
 {
