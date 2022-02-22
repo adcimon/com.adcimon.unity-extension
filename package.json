@@ -1,12 +1,13 @@
 {
-  "name": "com.adcimon.unity-extension",
-  "displayName": "Unity Extension",
-  "version": "0.1.0",
-  "type": "library",
-  "unity": "2019.1",
-  "description": "",
-  "keywords": [
-    "unity",
-    "extension"
-  ]
+	"name": "com.adcimon.unity-extension",
+	"displayName": "Unity Extension",
+	"version": "0.1.0",
+	"type": "library",
+	"unity": "2019.1",
+	"description": "Library with core functionalities.",
+	"keywords":
+	[
+		"unity",
+		"extension"
+	]
 }
