@@ -2,39 +2,39 @@
 
 public class DestroyObject : MonoBehaviour
 {
-    public Object target;
-    public float lifetime = 0;
-    public bool autoDestroy = false;
-    public bool runOnStart = true;
+	public Object target;
+	public float lifetime = 0;
+	public bool autoDestroy = false;
+	public bool runOnStart = true;
 
-    private void Start()
-    {
-        if( runOnStart )
-        {
-            if( autoDestroy )
-            {
-                AutoDestroy();
-            }
-            else
-            {
-                Destroy();
-            }
-        }
-    }
+	private void Start()
+	{
+		if( runOnStart )
+		{
+			if( autoDestroy )
+			{
+				AutoDestroy();
+			}
+			else
+			{
+				Destroy();
+			}
+		}
+	}
 
-    public void Destroy()
-    {
-        if( !target )
-        {
-            return;
-        }
+	public void Destroy()
+	{
+		if( !target )
+		{
+			return;
+		}
 
-        Object.Destroy(target, lifetime);
-    }
+		Object.Destroy(target, lifetime);
+	}
 
-    public void AutoDestroy()
-    {
-        target = gameObject;
-        Destroy();
-    }
+	public void AutoDestroy()
+	{
+		target = gameObject;
+		Destroy();
+	}
 }

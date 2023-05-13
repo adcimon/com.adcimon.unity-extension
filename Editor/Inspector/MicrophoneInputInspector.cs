@@ -1,20 +1,20 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(WebcamInput))]
-public class WebcamSourceInspector : Editor
+[CustomEditor(typeof(MicrophoneInput))]
+public class MicrophoneInputInspector : Editor
 {
-	private WebcamInput script;
+	private MicrophoneInput script;
 
 	private void Awake()
 	{
-		this.script = (WebcamInput)target;
+		this.script = (MicrophoneInput)target;
 	}
 
 	public override void OnInspectorGUI()
 	{
 		Rect rect = EditorGUILayout.GetControlRect(false);
-		if( EditorGUI.DropdownButton(rect, new GUIContent("Select Webcam"), FocusType.Keyboard) )
+		if( EditorGUI.DropdownButton(rect, new GUIContent("Select Microphone"), FocusType.Keyboard) )
 		{
 			DrawWebcamMenu(rect);
 		}
@@ -26,9 +26,9 @@ public class WebcamSourceInspector : Editor
 	{
 		GenericMenu menu = new GenericMenu();
 
-		foreach( WebCamDevice device in WebCamTexture.devices )
+		foreach( string device in Microphone.devices )
 		{
-			menu.AddItem(new GUIContent(device.name), false, () => ChangeWebcam(device.name));
+			menu.AddItem(new GUIContent(device), false, () => ChangeWebcam(device));
 		}
 
 		menu.DropDown(rect);
@@ -37,7 +37,7 @@ public class WebcamSourceInspector : Editor
 	private void ChangeWebcam( string name )
 	{
 		serializedObject.Update();
-		script.deviceName = name;
+		script.device = name;
 		serializedObject.ApplyModifiedProperties();
 	}
 }
