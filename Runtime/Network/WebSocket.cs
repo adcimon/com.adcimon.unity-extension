@@ -14,9 +14,9 @@ public class WebSocket : MonoBehaviour
 	public const int MAX_READ_SIZE = 1 * 1024 * 1024;
 
 	// Delegates.
-	public delegate void OnOpenDelegate( string url );
-	public delegate void OnMessageDelegate( string message );
-	public delegate void OnCloseDelegate( string url );
+	public delegate void OnOpenDelegate(string url);
+	public delegate void OnMessageDelegate(string message);
+	public delegate void OnCloseDelegate(string url);
 
 	// Events.
 	public OnOpenDelegate onOpen;
@@ -37,33 +37,33 @@ public class WebSocket : MonoBehaviour
 	private void Update()
 	{
 		// Pool socket state.
-		if( socket != null && state != socket.State )
+		if (socket != null && state != socket.State)
 		{
 			state = socket.State;
-			switch( state )
+			switch (state)
 			{
 				case WebSocketState.Open:
-				{
-					onOpen?.Invoke(this.url);
-					break;
-				}
+					{
+						onOpen?.Invoke(this.url);
+						break;
+					}
 				case WebSocketState.Closed:
-				{
-					onClose?.Invoke(this.url);
-					this.url = "";
-					socket = null;
-					break;
-				}
+					{
+						onClose?.Invoke(this.url);
+						this.url = "";
+						socket = null;
+						break;
+					}
 				default:
-				{
-					break;
-				}
+					{
+						break;
+					}
 			}
 		}
 
 		// Pool receive message queue.
 		string json;
-		while( receiveQueue.TryDequeue(out json) )
+		while (receiveQueue.TryDequeue(out json))
 		{
 			onMessage.Invoke(json);
 		}
@@ -74,9 +74,9 @@ public class WebSocket : MonoBehaviour
 		await Disconnect();
 	}
 
-	public async Task Connect( string url )
+	public async Task Connect(string url)
 	{
-		if( socket != null && (socket.State != WebSocketState.None || socket.State != WebSocketState.Closed) )
+		if (socket != null && (socket.State != WebSocketState.None || socket.State != WebSocketState.Closed))
 		{
 			return;
 		}
@@ -88,12 +88,12 @@ public class WebSocket : MonoBehaviour
 			this.url = url;
 			socket = new ClientWebSocket();
 			await socket.ConnectAsync(new Uri(this.url), CancellationToken.None);
-			while( socket.State == WebSocketState.Connecting )
+			while (socket.State == WebSocketState.Connecting)
 			{
 				Task.Delay(50).Wait();
 			}
 
-			if( socket.State == WebSocketState.Open )
+			if (socket.State == WebSocketState.Open)
 			{
 				//Debug.Log("Client connected to " + this.url);
 
@@ -107,27 +107,27 @@ public class WebSocket : MonoBehaviour
 				Debug.LogError("Connect socket state: " + socket.State);
 			}
 		}
-		catch( Exception exception )
+		catch (Exception exception)
 		{
 			Debug.LogError(exception.Message);
 		}
 	}
 
-	#pragma warning disable CS1998
+#pragma warning disable CS1998
 	public async Task Disconnect()
 	{
-		if( socket == null || socket.State == WebSocketState.Closed )
+		if (socket == null || socket.State == WebSocketState.Closed)
 		{
 			return;
 		}
 
 		try
 		{
-			#pragma warning disable CS4014
+#pragma warning disable CS4014
 			socket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
-			#pragma warning restore CS4014
+#pragma warning restore CS4014
 			socket.Dispose();
-			if( socket.State == WebSocketState.Closed )
+			if (socket.State == WebSocketState.Closed)
 			{
 				//Debug.Log("Client disconnected from " + this.url);
 
@@ -140,12 +140,12 @@ public class WebSocket : MonoBehaviour
 				Debug.LogError("Disconnect socket state: " + socket.State);
 			}
 		}
-		catch( Exception exception )
+		catch (Exception exception)
 		{
 			Debug.LogError(exception.Message);
 		}
 	}
-	#pragma warning restore CS1998
+#pragma warning restore CS1998
 
 	private async Task<string> Receive()
 	{
@@ -154,7 +154,7 @@ public class WebSocket : MonoBehaviour
 		ArraySegment<byte> arrayBuffer = new ArraySegment<byte>(buffer);
 
 		WebSocketReceiveResult chunk = null;
-		if( socket.State == WebSocketState.Open )
+		if (socket.State == WebSocketState.Open)
 		{
 			do
 			{
@@ -162,15 +162,15 @@ public class WebSocket : MonoBehaviour
 				stream.Write(arrayBuffer.Array, arrayBuffer.Offset, chunk.Count);
 
 				//Debug.Log("Chunk size: " + chunkResult.Count);
-				if( chunk.Count > MAX_READ_SIZE )
+				if (chunk.Count > MAX_READ_SIZE)
 				{
 					Debug.LogError("Received message is bigger than expected (" + chunk.Count + " > " + MAX_READ_SIZE + ")");
 				}
 			}
-			while( !chunk.EndOfMessage );
+			while (!chunk.EndOfMessage);
 
 			stream.Seek(0, SeekOrigin.Begin);
-			if( chunk.MessageType == WebSocketMessageType.Text ) // UTF-8 JSON type messages.
+			if (chunk.MessageType == WebSocketMessageType.Text) // UTF-8 JSON type messages.
 			{
 				return MemoryStreamToString(stream, Encoding.UTF8);
 			}
@@ -179,9 +179,9 @@ public class WebSocket : MonoBehaviour
 		return "";
 	}
 
-	public void Send( string message )
+	public void Send(string message)
 	{
-		if( socket == null || socket.State != WebSocketState.Open )
+		if (socket == null || socket.State != WebSocketState.Open)
 		{
 			return;
 		}
@@ -197,10 +197,10 @@ public class WebSocket : MonoBehaviour
 	private async void ReceiveThread()
 	{
 		string message;
-		while( true )
+		while (true)
 		{
 			message = await Receive();
-			if( message != null && message.Length > 0 )
+			if (message != null && message.Length > 0)
 			{
 				receiveQueue.Enqueue(message);
 
@@ -216,9 +216,9 @@ public class WebSocket : MonoBehaviour
 	private async void SendThread()
 	{
 		ArraySegment<byte> sendBuffer;
-		while( true )
+		while (true)
 		{
-			while( !sendQueue.IsCompleted )
+			while (!sendQueue.IsCompleted)
 			{
 				sendBuffer = sendQueue.Take();
 
@@ -230,24 +230,24 @@ public class WebSocket : MonoBehaviour
 	private void ClearQueues()
 	{
 		string receiveItem;
-		while( !receiveQueue.IsEmpty )
+		while (!receiveQueue.IsEmpty)
 		{
 			receiveQueue.TryDequeue(out receiveItem);
 		}
 
 		ArraySegment<byte> sendItem;
-		while( sendQueue.Count != 0 )
+		while (sendQueue.Count != 0)
 		{
 			sendQueue.TryTake(out sendItem);
 		}
 	}
 
-	private static string MemoryStreamToString( MemoryStream stream, Encoding encoding )
+	private static string MemoryStreamToString(MemoryStream stream, Encoding encoding)
 	{
 		string str = "";
-		if( encoding == Encoding.UTF8 )
+		if (encoding == Encoding.UTF8)
 		{
-			using( StreamReader reader = new StreamReader(stream, encoding) )
+			using (StreamReader reader = new StreamReader(stream, encoding))
 			{
 				str = reader.ReadToEnd();
 			}

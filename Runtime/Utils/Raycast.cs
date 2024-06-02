@@ -25,7 +25,7 @@ public class Raycast : MonoBehaviour
 
 	private void Update()
 	{
-		if( castOnUpdate )
+		if (castOnUpdate)
 		{
 			Cast();
 		}
@@ -34,7 +34,7 @@ public class Raycast : MonoBehaviour
 	public void Cast()
 	{
 		Ray ray;
-		if( camera )
+		if (camera)
 		{
 			ray = camera.ScreenPointToRay(Input.mousePosition);
 		}
@@ -44,7 +44,7 @@ public class Raycast : MonoBehaviour
 		}
 
 		RaycastHit hit;
-		if( Physics.Raycast(ray, out hit, distance, layerMask) )
+		if (Physics.Raycast(ray, out hit, distance, layerMask))
 		{
 			Debug.DrawLine(ray.origin, hit.point, Color.green);
 

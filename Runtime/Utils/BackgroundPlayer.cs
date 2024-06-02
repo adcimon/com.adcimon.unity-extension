@@ -11,7 +11,7 @@ public class BackgroundPlayer : MonoBehaviour
 
 	private void Update()
 	{
-		if( Application.runInBackground != runInBackground )
+		if (Application.runInBackground != runInBackground)
 		{
 			Application.runInBackground = runInBackground;
 		}

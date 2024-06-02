@@ -18,9 +18,9 @@ public class TriggerArea : MonoBehaviour
 		collider = this.GetComponent<Collider>();
 	}
 
-	private void OnTriggerEnter( Collider other )
+	private void OnTriggerEnter(Collider other)
 	{
-		if( !((layerMask.value & 1 << other.gameObject.layer) == 1 << other.gameObject.layer) )
+		if (!((layerMask.value & 1 << other.gameObject.layer) == 1 << other.gameObject.layer))
 		{
 			return;
 		}
@@ -28,9 +28,9 @@ public class TriggerArea : MonoBehaviour
 		onTriggerEnter.Invoke(other.gameObject, collider);
 	}
 
-	private void OnTriggerExit( Collider other )
+	private void OnTriggerExit(Collider other)
 	{
-		if( !((layerMask.value & 1 << other.gameObject.layer) == 1 << other.gameObject.layer) )
+		if (!((layerMask.value & 1 << other.gameObject.layer) == 1 << other.gameObject.layer))
 		{
 			return;
 		}

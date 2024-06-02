@@ -8,14 +8,14 @@
 /// <param name="c">Final value.</param>
 /// <param name="d">Duration.</param>
 /// <returns>Animated value.</returns>
-public delegate float EasingFunction( float t, float b, float c, float d );
+public delegate float EasingFunction(float t, float b, float c, float d);
 
 public static class EasingFunctions
 {
 	/// <summary>
 	/// Simple linear with no easing.
 	/// </summary>
-	public static float Linear( float t, float b, float c, float d )
+	public static float Linear(float t, float b, float c, float d)
 	{
 		return c * t / d + b;
 	}
@@ -28,7 +28,7 @@ public static class EasingFunctions
 		/// <summary>
 		/// Accelerating from zero velocity.
 		/// </summary>
-		public static float In( float t, float b, float c, float d )
+		public static float In(float t, float b, float c, float d)
 		{
 			return c * (t /= d) * t + b;
 		}
@@ -36,7 +36,7 @@ public static class EasingFunctions
 		/// <summary>
 		/// Decelerating from zero velocity.
 		/// </summary>
-		public static float Out( float t, float b, float c, float d )
+		public static float Out(float t, float b, float c, float d)
 		{
 			return -c * (t /= d) * (t - 2) + b;
 		}
@@ -44,9 +44,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Acceleration until halfway, then deceleration.
 		/// </summary>
-		public static float InOut( float t, float b, float c, float d )
+		public static float InOut(float t, float b, float c, float d)
 		{
-			if( (t /= d / 2) < 1 )
+			if ((t /= d / 2) < 1)
 			{
 				return c / 2 * t * t + b;
 			}
@@ -57,9 +57,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Deceleration until halfway, then acceleration.
 		/// </summary>
-		public static float OutIn( float t, float b, float c, float d )
+		public static float OutIn(float t, float b, float c, float d)
 		{
-			if( t < d / 2 )
+			if (t < d / 2)
 			{
 				return Out(t * 2, b, c / 2, d);
 			}
@@ -76,7 +76,7 @@ public static class EasingFunctions
 		/// <summary>
 		/// Accelerating from zero velocity.
 		/// </summary>
-		public static float In( float t, float b, float c, float d )
+		public static float In(float t, float b, float c, float d)
 		{
 			return c * (t /= d) * t * t + b;
 		}
@@ -84,7 +84,7 @@ public static class EasingFunctions
 		/// <summary>
 		/// Decelerating from zero velocity.
 		/// </summary>
-		public static float Out( float t, float b, float c, float d )
+		public static float Out(float t, float b, float c, float d)
 		{
 			return c * ((t = t / d - 1) * t * t + 1) + b;
 		}
@@ -92,9 +92,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Acceleration until halfway, then deceleration.
 		/// </summary>
-		public static float InOut( float t, float b, float c, float d )
+		public static float InOut(float t, float b, float c, float d)
 		{
-			if( (t /= d / 2) < 1 )
+			if ((t /= d / 2) < 1)
 			{
 				return c / 2 * t * t * t + b;
 			}
@@ -105,9 +105,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Deceleration until halfway, then acceleration.
 		/// </summary>
-		public static float OutIn( float t, float b, float c, float d )
+		public static float OutIn(float t, float b, float c, float d)
 		{
-			if( t < d / 2 )
+			if (t < d / 2)
 			{
 				return Out(t * 2, b, c / 2, d);
 			}
@@ -124,7 +124,7 @@ public static class EasingFunctions
 		/// <summary>
 		/// Accelerating from zero velocity.
 		/// </summary>
-		public static float In( float t, float b, float c, float d )
+		public static float In(float t, float b, float c, float d)
 		{
 			return c * (t /= d) * t * t * t + b;
 		}
@@ -132,7 +132,7 @@ public static class EasingFunctions
 		/// <summary>
 		/// Decelerating from zero velocity.
 		/// </summary>
-		public static float Out( float t, float b, float c, float d )
+		public static float Out(float t, float b, float c, float d)
 		{
 			return -c * ((t = t / d - 1) * t * t * t - 1) + b;
 		}
@@ -140,9 +140,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Acceleration until halfway, then deceleration.
 		/// </summary>
-		public static float InOut( float t, float b, float c, float d )
+		public static float InOut(float t, float b, float c, float d)
 		{
-			if( (t /= d / 2) < 1 )
+			if ((t /= d / 2) < 1)
 			{
 				return c / 2 * t * t * t * t + b;
 			}
@@ -153,9 +153,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Deceleration until halfway, then acceleration.
 		/// </summary>
-		public static float OutIn( float t, float b, float c, float d )
+		public static float OutIn(float t, float b, float c, float d)
 		{
-			if( t < d / 2 )
+			if (t < d / 2)
 			{
 				return Out(t * 2, b, c / 2, d);
 			}
@@ -172,7 +172,7 @@ public static class EasingFunctions
 		/// <summary>
 		/// Accelerating from zero velocity.
 		/// </summary>
-		public static float In( float t, float b, float c, float d )
+		public static float In(float t, float b, float c, float d)
 		{
 			return c * (t /= d) * t * t * t * t + b;
 		}
@@ -180,7 +180,7 @@ public static class EasingFunctions
 		/// <summary>
 		/// Decelerating from zero velocity.
 		/// </summary>
-		public static float Out( float t, float b, float c, float d )
+		public static float Out(float t, float b, float c, float d)
 		{
 			return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
 		}
@@ -188,9 +188,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Acceleration until halfway, then deceleration.
 		/// </summary>
-		public static float InOut( float t, float b, float c, float d )
+		public static float InOut(float t, float b, float c, float d)
 		{
-			if( (t /= d / 2) < 1 )
+			if ((t /= d / 2) < 1)
 			{
 				return c / 2 * t * t * t * t * t + b;
 			}
@@ -201,9 +201,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Deceleration until halfway, then acceleration.
 		/// </summary>
-		public static float OutIn( float t, float b, float c, float d )
+		public static float OutIn(float t, float b, float c, float d)
 		{
-			if( t < d / 2 )
+			if (t < d / 2)
 			{
 				return Out(t * 2, b, c / 2, d);
 			}
@@ -220,7 +220,7 @@ public static class EasingFunctions
 		/// <summary>
 		/// Accelerating from zero velocity.
 		/// </summary>
-		public static float In( float t, float b, float c, float d )
+		public static float In(float t, float b, float c, float d)
 		{
 			return -c * Mathf.Cos(t / d * (Mathf.PI / 2)) + c + b;
 		}
@@ -228,7 +228,7 @@ public static class EasingFunctions
 		/// <summary>
 		/// Decelerating from zero velocity.
 		/// </summary>
-		public static float Out( float t, float b, float c, float d )
+		public static float Out(float t, float b, float c, float d)
 		{
 			return c * Mathf.Sin(t / d * (Mathf.PI / 2)) + b;
 		}
@@ -236,9 +236,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Acceleration until halfway, then deceleration.
 		/// </summary>
-		public static float InOut( float t, float b, float c, float d )
+		public static float InOut(float t, float b, float c, float d)
 		{
-			if( (t /= d / 2) < 1 )
+			if ((t /= d / 2) < 1)
 			{
 				return c / 2 * (Mathf.Sin(Mathf.PI * t / 2)) + b;
 			}
@@ -249,9 +249,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Deceleration until halfway, then acceleration.
 		/// </summary>
-		public static float OutIn( float t, float b, float c, float d )
+		public static float OutIn(float t, float b, float c, float d)
 		{
-			if( t < d / 2 )
+			if (t < d / 2)
 			{
 				return Out(t * 2, b, c / 2, d);
 			}
@@ -268,7 +268,7 @@ public static class EasingFunctions
 		/// <summary>
 		/// Accelerating from zero velocity.
 		/// </summary>
-		public static float In( float t, float b, float c, float d )
+		public static float In(float t, float b, float c, float d)
 		{
 			return -c * (Mathf.Sqrt(1 - (t /= d) * t) - 1) + b;
 		}
@@ -276,7 +276,7 @@ public static class EasingFunctions
 		/// <summary>
 		/// Decelerating from zero velocity.
 		/// </summary>
-		public static float Out( float t, float b, float c, float d )
+		public static float Out(float t, float b, float c, float d)
 		{
 			return c * Mathf.Sqrt(1 - (t = t / d - 1) * t) + b;
 		}
@@ -284,9 +284,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Acceleration until halfway, then deceleration.
 		/// </summary>
-		public static float InOut( float t, float b, float c, float d )
+		public static float InOut(float t, float b, float c, float d)
 		{
-			if( (t /= d / 2) < 1 )
+			if ((t /= d / 2) < 1)
 			{
 				return -c / 2 * (Mathf.Sqrt(1 - t * t) - 1) + b;
 			}
@@ -297,9 +297,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Deceleration until halfway, then acceleration.
 		/// </summary>
-		public static float OutIn( float t, float b, float c, float d )
+		public static float OutIn(float t, float b, float c, float d)
 		{
-			if( t < d / 2 )
+			if (t < d / 2)
 			{
 				return Out(t * 2, b, c / 2, d);
 			}
@@ -316,7 +316,7 @@ public static class EasingFunctions
 		/// <summary>
 		/// Accelerating from zero velocity.
 		/// </summary>
-		public static float In( float t, float b, float c, float d )
+		public static float In(float t, float b, float c, float d)
 		{
 			return c * (t /= d) * t * ((1.70158f + 1) * t - 1.70158f) + b;
 		}
@@ -324,7 +324,7 @@ public static class EasingFunctions
 		/// <summary>
 		/// Decelerating from zero velocity.
 		/// </summary>
-		public static float Out( float t, float b, float c, float d )
+		public static float Out(float t, float b, float c, float d)
 		{
 			return c * ((t = t / d - 1) * t * ((1.70158f + 1) * t + 1.70158f) + 1) + b;
 		}
@@ -332,10 +332,10 @@ public static class EasingFunctions
 		/// <summary>
 		/// Acceleration until halfway, then deceleration.
 		/// </summary>
-		public static float InOut( float t, float b, float c, float d )
+		public static float InOut(float t, float b, float c, float d)
 		{
 			float s = 1.70158f;
-			if( (t /= d / 2) < 1 )
+			if ((t /= d / 2) < 1)
 			{
 				return c / 2 * (t * t * (((s *= (1.525f)) + 1) * t - s)) + b;
 			}
@@ -346,9 +346,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Deceleration until halfway, then acceleration.
 		/// </summary>
-		public static float OutIn( float t, float b, float c, float d )
+		public static float OutIn(float t, float b, float c, float d)
 		{
-			if( t < d / 2 )
+			if (t < d / 2)
 			{
 				return Out(t * 2, b, c / 2, d);
 			}
@@ -365,7 +365,7 @@ public static class EasingFunctions
 		/// <summary>
 		/// Accelerating from zero velocity.
 		/// </summary>
-		public static float In( float t, float b, float c, float d )
+		public static float In(float t, float b, float c, float d)
 		{
 			return (t == 0) ? b : c * Mathf.Pow(2, 10 * (t / d - 1)) + b;
 		}
@@ -373,7 +373,7 @@ public static class EasingFunctions
 		/// <summary>
 		/// Decelerating from zero velocity.
 		/// </summary>
-		public static float Out( float t, float b, float c, float d )
+		public static float Out(float t, float b, float c, float d)
 		{
 			return (t == d) ? b + c : c * (-Mathf.Pow(2, -10 * t / d) + 1) + b;
 		}
@@ -381,19 +381,19 @@ public static class EasingFunctions
 		/// <summary>
 		/// Acceleration until halfway, then deceleration.
 		/// </summary>
-		public static float InOut( float t, float b, float c, float d )
+		public static float InOut(float t, float b, float c, float d)
 		{
-			if( t == 0 )
+			if (t == 0)
 			{
 				return b;
 			}
 
-			if( t == d )
+			if (t == d)
 			{
 				return b + c;
 			}
 
-			if( (t /= d / 2) < 1 )
+			if ((t /= d / 2) < 1)
 			{
 				return c / 2 * Mathf.Pow(2, 10 * (t - 1)) + b;
 			}
@@ -404,9 +404,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Deceleration until halfway, then acceleration.
 		/// </summary>
-		public static float OutIn( float t, float b, float c, float d )
+		public static float OutIn(float t, float b, float c, float d)
 		{
-			if( t < d / 2 )
+			if (t < d / 2)
 			{
 				return Out(t * 2, b, c / 2, d);
 			}
@@ -423,9 +423,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Accelerating from zero velocity.
 		/// </summary>
-		public static float In( float t, float b, float c, float d )
+		public static float In(float t, float b, float c, float d)
 		{
-			if( (t /= d) == 1 )
+			if ((t /= d) == 1)
 			{
 				return b + c;
 			}
@@ -439,9 +439,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Decelerating from zero velocity.
 		/// </summary>
-		public static float Out( float t, float b, float c, float d )
+		public static float Out(float t, float b, float c, float d)
 		{
-			if( (t /= d) == 1 )
+			if ((t /= d) == 1)
 			{
 				return b + c;
 			}
@@ -455,9 +455,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Acceleration until halfway, then deceleration.
 		/// </summary>
-		public static float InOut( float t, float b, float c, float d )
+		public static float InOut(float t, float b, float c, float d)
 		{
-			if( (t /= d / 2) == 2 )
+			if ((t /= d / 2) == 2)
 			{
 				return b + c;
 			}
@@ -465,7 +465,7 @@ public static class EasingFunctions
 			float p = d * (0.3f * 1.5f);
 			float s = p / 4;
 
-			if( t < 1 )
+			if (t < 1)
 			{
 				return -0.5f * (c * Mathf.Pow(2, 10 * (t -= 1)) * Mathf.Sin((t * d - s) * (2 * Mathf.PI) / p)) + b;
 			}
@@ -476,9 +476,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Deceleration until halfway, then acceleration.
 		/// </summary>
-		public static float OutIn( float t, float b, float c, float d )
+		public static float OutIn(float t, float b, float c, float d)
 		{
-			if( t < d / 2 )
+			if (t < d / 2)
 			{
 				return Out(t * 2, b, c / 2, d);
 			}
@@ -495,7 +495,7 @@ public static class EasingFunctions
 		/// <summary>
 		/// Accelerating from zero velocity.
 		/// </summary>
-		public static float In( float t, float b, float c, float d )
+		public static float In(float t, float b, float c, float d)
 		{
 			return c - Out(d - t, 0, c, d) + b;
 		}
@@ -503,17 +503,17 @@ public static class EasingFunctions
 		/// <summary>
 		/// Decelerating from zero velocity.
 		/// </summary>
-		public static float Out( float t, float b, float c, float d )
+		public static float Out(float t, float b, float c, float d)
 		{
-			if( (t /= d) < (1 / 2.75f) )
+			if ((t /= d) < (1 / 2.75f))
 			{
 				return c * (7.5625f * t * t) + b;
 			}
-			else if( t < (2 / 2.75f) )
+			else if (t < (2 / 2.75f))
 			{
 				return c * (7.5625f * (t -= (1.5f / 2.75f)) * t + 0.75f) + b;
 			}
-			else if( t < (2.5 / 2.75f) )
+			else if (t < (2.5 / 2.75f))
 			{
 				return c * (7.5625f * (t -= (2.25f / 2.75f)) * t + 0.9375f) + b;
 			}
@@ -526,9 +526,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Acceleration until halfway, then deceleration.
 		/// </summary>
-		public static float InOut( float t, float b, float c, float d )
+		public static float InOut(float t, float b, float c, float d)
 		{
-			if( t < d / 2 )
+			if (t < d / 2)
 			{
 				return In(t * 2, 0, c, d) * 0.5f + b;
 			}
@@ -541,9 +541,9 @@ public static class EasingFunctions
 		/// <summary>
 		/// Deceleration until halfway, then acceleration.
 		/// </summary>
-		public static float OutIn( float t, float b, float c, float d )
+		public static float OutIn(float t, float b, float c, float d)
 		{
-			if( t < d / 2 )
+			if (t < d / 2)
 			{
 				return Out(t * 2, b, c / 2, d);
 			}

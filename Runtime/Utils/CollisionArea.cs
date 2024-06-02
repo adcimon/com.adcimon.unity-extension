@@ -18,9 +18,9 @@ public class CollisionArea : MonoBehaviour
 		collider = this.GetComponent<Collider>();
 	}
 
-	private void OnCollisionEnter( Collision collision )
+	private void OnCollisionEnter(Collision collision)
 	{
-		if( !((layerMask.value & 1 << collision.gameObject.layer) == 1 << collision.gameObject.layer) )
+		if (!((layerMask.value & 1 << collision.gameObject.layer) == 1 << collision.gameObject.layer))
 		{
 			return;
 		}
@@ -28,9 +28,9 @@ public class CollisionArea : MonoBehaviour
 		onCollisionEnter.Invoke(collision.gameObject, collider);
 	}
 
-	private void OnCollisionExit( Collision collision )
+	private void OnCollisionExit(Collision collision)
 	{
-		if( !((layerMask.value & 1 << collision.gameObject.layer) == 1 << collision.gameObject.layer) )
+		if (!((layerMask.value & 1 << collision.gameObject.layer) == 1 << collision.gameObject.layer))
 		{
 			return;
 		}

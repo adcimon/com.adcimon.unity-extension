@@ -3,11 +3,11 @@ using UnityEngine;
 /// <summary>
 /// Colors from the CSS3 specification, Section 4.3 Extended Color Keywords (http://www.w3.org/TR/css3-color/#svg-color).
 /// </summary>
-public static class Colors 
+public static class Colors
 {
 	public static readonly Color AliceBlue = new Color32(240, 248, 255, 255);
 	public static readonly Color AntiqueWhite = new Color32(250, 235, 215, 255);
-	public static readonly Color Aqua= new Color32(0, 255, 255, 255);
+	public static readonly Color Aqua = new Color32(0, 255, 255, 255);
 	public static readonly Color Aquamarine = new Color32(127, 255, 212, 255);
 	public static readonly Color Azure = new Color32(240, 255, 255, 255);
 	public static readonly Color Beige = new Color32(245, 245, 220, 255);
@@ -116,7 +116,7 @@ public static class Colors
 	public static readonly Color Peru = new Color32(205, 133, 63, 255);
 	public static readonly Color Pink = new Color32(255, 192, 203, 255);
 	public static readonly Color Plum = new Color32(221, 160, 221, 255);
-	public static readonly Color PowderBlue  = new Color32(176, 224, 230, 255);
+	public static readonly Color PowderBlue = new Color32(176, 224, 230, 255);
 	public static readonly Color Purple = new Color32(128, 0, 128, 255);
 	public static readonly Color Red = new Color32(255, 0, 0, 255);
 	public static readonly Color RosyBrown = new Color32(188, 143, 143, 255);

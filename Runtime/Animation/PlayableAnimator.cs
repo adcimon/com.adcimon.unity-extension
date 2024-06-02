@@ -24,7 +24,7 @@ public class PlayableAnimator : MonoBehaviour
 
 		playableGraph.Play();
 
-		for( int i = 0; i < clips.Count; i++ )
+		for (int i = 0; i < clips.Count; i++)
 		{
 			AnimationClip clip = clips[i];
 			AddClip(clip);
@@ -36,7 +36,7 @@ public class PlayableAnimator : MonoBehaviour
 		playableGraph.Destroy();
 	}
 
-	public bool AddClip( AnimationClip clip )
+	public bool AddClip(AnimationClip clip)
 	{
 		AnimationClipPlayable playableClip = AnimationClipPlayable.Create(playableGraph, clip);
 
@@ -44,7 +44,7 @@ public class PlayableAnimator : MonoBehaviour
 		int inputCount = playableMixer.GetInputCount();
 		playableMixer.SetInputCount(inputCount + 1);
 
-		if( playableGraph.Connect(playableClip, 0, playableMixer, inputCount) )
+		if (playableGraph.Connect(playableClip, 0, playableMixer, inputCount))
 		{
 			playableClips.Add(playableClip);
 
@@ -57,70 +57,70 @@ public class PlayableAnimator : MonoBehaviour
 		return false;
 	}
 
-	public bool IsComplete( int index )
+	public bool IsComplete(int index)
 	{
 		AnimationClipPlayable clip = playableClips[index];
 		return clip.GetTime() > clip.GetAnimationClip().length;
 	}
 
-	public PlayState GetState( int index )
+	public PlayState GetState(int index)
 	{
 		AnimationClipPlayable clip = playableClips[index];
 		return clip.GetPlayState();
 	}
 
-	public float GetNormalizedTime( int index )
+	public float GetNormalizedTime(int index)
 	{
 		AnimationClipPlayable clip = playableClips[index];
 		return (float)clip.GetTime() / clip.GetAnimationClip().length;
 	}
 
-	public void SetTime( int index, float time )
+	public void SetTime(int index, float time)
 	{
 		AnimationClipPlayable clip = playableClips[index];
 		clip.SetTime(time);
 	}
 
-	public void SetNormalizedTime( int index, float time )
+	public void SetNormalizedTime(int index, float time)
 	{
 		AnimationClipPlayable clip = playableClips[index];
 		clip.SetTime(Mathf.Clamp01(time) * clip.GetAnimationClip().length);
 	}
 
-	public void SetWeight( int index, float weight )
+	public void SetWeight(int index, float weight)
 	{
 		playableMixer.SetInputWeight(index, weight);
 	}
 
-	public void SetSpeed( int index, float speed )
+	public void SetSpeed(int index, float speed)
 	{
 		AnimationClipPlayable clip = playableClips[index];
 		clip.SetSpeed(speed);
 	}
 
-	public void SetDuration( int index, float duration )
+	public void SetDuration(int index, float duration)
 	{
 		AnimationClipPlayable clip = playableClips[index];
 		SetSpeed(index, clip.GetAnimationClip().length / duration);
 	}
 
-	public void PlayClip( int index )
+	public void PlayClip(int index)
 	{
 		AnimationClipPlayable clip = playableClips[index];
 		clip.Play();
 	}
 
-	public bool PlayOne( string name )
+	public bool PlayOne(string name)
 	{
 		int index = clips.FindIndex(clip => clip.name.Equals(name));
-		if( index == -1 )
+		if (index == -1)
 		{
 			return false;
 		}
 
-		for( int i = 0; i < clips.Count; i++ )
+		for (int i = 0; i < clips.Count; i++)
 		{
-			if( index != i )
+			if (index != i)
 			{
 				StopClip(i);
 			}
@@ -133,13 +133,13 @@ public class PlayableAnimator : MonoBehaviour
 		return true;
 	}
 
-	public void PauseClip( int index )
+	public void PauseClip(int index)
 	{
 		AnimationClipPlayable clip = playableClips[index];
 		clip.Pause();
 	}
 
-	public void StopClip( int index )
+	public void StopClip(int index)
 	{
 		AnimationClipPlayable clip = playableClips[index];
 		clip.Pause();

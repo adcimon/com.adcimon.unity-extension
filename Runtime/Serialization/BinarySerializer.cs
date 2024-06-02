@@ -8,7 +8,7 @@ namespace Serialization
 		/// <summary>
 		/// Serializes the object into a byte array.
 		/// </summary>
-		public static byte[] Serialize<T>( this T obj )
+		public static byte[] Serialize<T>(this T obj)
 		{
 			MemoryStream stream = new MemoryStream();
 			BinaryFormatter formatter = new BinaryFormatter();
@@ -20,7 +20,7 @@ namespace Serialization
 		/// <summary>
 		/// Deserializes the specified byte array into an object.
 		/// </summary>
-		public static T Deserialize<T>( this byte[] byteArray )
+		public static T Deserialize<T>(this byte[] byteArray)
 		{
 			MemoryStream stream = new MemoryStream(byteArray);
 			BinaryFormatter formatter = new BinaryFormatter();

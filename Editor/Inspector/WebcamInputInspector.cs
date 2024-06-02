@@ -14,7 +14,7 @@ public class WebcamInputInspector : Editor
 	public override void OnInspectorGUI()
 	{
 		Rect rect = EditorGUILayout.GetControlRect(false);
-		if( EditorGUI.DropdownButton(rect, new GUIContent("Select Webcam"), FocusType.Keyboard) )
+		if (EditorGUI.DropdownButton(rect, new GUIContent("Select Webcam"), FocusType.Keyboard))
 		{
 			DrawWebcamMenu(rect);
 		}
@@ -22,11 +22,11 @@ public class WebcamInputInspector : Editor
 		DrawDefaultInspector();
 	}
 
-	private void DrawWebcamMenu( Rect rect )
+	private void DrawWebcamMenu(Rect rect)
 	{
 		GenericMenu menu = new GenericMenu();
 
-		foreach( WebCamDevice device in WebCamTexture.devices )
+		foreach (WebCamDevice device in WebCamTexture.devices)
 		{
 			menu.AddItem(new GUIContent(device.name), false, () => ChangeWebcam(device.name));
 		}
@@ -34,7 +34,7 @@ public class WebcamInputInspector : Editor
 		menu.DropDown(rect);
 	}
 
-	private void ChangeWebcam( string name )
+	private void ChangeWebcam(string name)
 	{
 		serializedObject.Update();
 		script.device = name;

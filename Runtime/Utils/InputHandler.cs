@@ -49,91 +49,91 @@ public class InputHandler : MonoBehaviour
 
 	private void HandleKeys()
 	{
-		for( int i = 0; i < keyInputs.Count; i++ )
+		for (int i = 0; i < keyInputs.Count; i++)
 		{
 			KeyInput key = keyInputs[i];
 
-			switch( key.state )
+			switch (key.state)
 			{
 				case KeyState.Down:
-				{
-					if( Input.GetKeyDown(key.code) )
 					{
-						key.onEvent.Invoke(key.code, key.state);
-					}
+						if (Input.GetKeyDown(key.code))
+						{
+							key.onEvent.Invoke(key.code, key.state);
+						}
 
-					break;
-				}
+						break;
+					}
 				case KeyState.Pressed:
-				{
-					if( Input.GetKey(key.code) )
 					{
-						key.onEvent.Invoke(key.code, key.state);
-					}
+						if (Input.GetKey(key.code))
+						{
+							key.onEvent.Invoke(key.code, key.state);
+						}
 
-					break;
-				}
+						break;
+					}
 				case KeyState.Up:
-				{
-					if( Input.GetKeyUp(key.code) )
 					{
-						key.onEvent.Invoke(key.code, key.state);
-					}
+						if (Input.GetKeyUp(key.code))
+						{
+							key.onEvent.Invoke(key.code, key.state);
+						}
 
-					break;
-				}
+						break;
+					}
 			}
 		}
 	}
 
 	private void HandleAxes()
 	{
-		for( int i = 0; i < axisInputs.Count; i++ )
+		for (int i = 0; i < axisInputs.Count; i++)
 		{
 			AxisInput axis = axisInputs[i];
 
 			float value = (axis.state == AxisState.Normal) ? Input.GetAxis(axis.code) : (Input.GetAxisRaw(axis.code));
 
 			bool flag = (axis.comparisons.Count > 0);
-			for( int j = 0; j < axis.comparisons.Count; j++ )
+			for (int j = 0; j < axis.comparisons.Count; j++)
 			{
-				if( !flag )
+				if (!flag)
 				{
 					break;
 				}
 
 				AxisComparison comparison = axis.comparisons[j];
-				switch( comparison.comparison )
+				switch (comparison.comparison)
 				{
 					case Comparison.Less:
-					{
-						flag = flag && (value < comparison.value);
-						break;
-					}
+						{
+							flag = flag && (value < comparison.value);
+							break;
+						}
 					case Comparison.LessEqual:
-					{
-						flag = flag && (value <= comparison.value);
-						break;
-					}
+						{
+							flag = flag && (value <= comparison.value);
+							break;
+						}
 					case Comparison.Equal:
-					{
-						flag = flag && (value == comparison.value);
-						break;
-					}
+						{
+							flag = flag && (value == comparison.value);
+							break;
+						}
 					case Comparison.GreaterEqual:
-					{
-						flag = flag && (value >= comparison.value);
-						break;
-					}
+						{
+							flag = flag && (value >= comparison.value);
+							break;
+						}
 					case Comparison.Greater:
-					{
-						flag = flag && (value > comparison.value);
-						break;
-					}
+						{
+							flag = flag && (value > comparison.value);
+							break;
+						}
 				}
 			}
 
-			if( flag )
+			if (flag)
 			{
 				axis.onEvent.Invoke(axis.code, value);
 			}

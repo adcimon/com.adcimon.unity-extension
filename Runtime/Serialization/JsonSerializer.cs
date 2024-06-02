@@ -9,11 +9,11 @@ namespace Serialization
 		/// <summary>
 		/// Serializes the object to the specified path.
 		/// </summary>
-		public static void Serialize<T>( T obj, string path )
+		public static void Serialize<T>(T obj, string path)
 		{
 			try
 			{
-				if( !path.EndsWith(".json") )
+				if (!path.EndsWith(".json"))
 				{
 					path += ".json";
 				}
@@ -23,7 +23,7 @@ namespace Serialization
 				stream.Write(content);
 				stream.Close();
 			}
-			catch( Exception e )
+			catch (Exception e)
 			{
 				Debug.LogError(e.Message + e.StackTrace);
 			}
@@ -32,11 +32,11 @@ namespace Serialization
 		/// <summary>
 		/// Deserializes the file located at path.
 		/// </summary>
-		public static T Deserialize<T>( string path )
+		public static T Deserialize<T>(string path)
 		{
 			try
 			{
-				if( !path.EndsWith(".json") )
+				if (!path.EndsWith(".json"))
 				{
 					path += ".json";
 				}
@@ -46,7 +46,7 @@ namespace Serialization
 				stream.Close();
 				return JsonUtility.FromJson<T>(content);
 			}
-			catch( Exception e )
+			catch (Exception e)
 			{
 				Debug.LogError(e.Message + e.StackTrace);
 				return default(T);
@@ -56,11 +56,11 @@ namespace Serialization
 		/// <summary>
 		/// Deserializes the file located at a resources path.
 		/// </summary>
-		public static T DeserializeResource<T>( string path )
+		public static T DeserializeResource<T>(string path)
 		{
 			try
 			{
-				if( path.EndsWith(".json") )
+				if (path.EndsWith(".json"))
 				{
 					// Remove the extension.
 					path = path.Substring(0, path.LastIndexOf(".json"));
@@ -72,7 +72,7 @@ namespace Serialization
 				TextAsset textAsset = (TextAsset)Resources.Load(path);
 				return JsonUtility.FromJson<T>(textAsset.text);
 			}
-			catch( Exception e )
+			catch (Exception e)
 			{
 				Debug.LogError(e.Message + e.StackTrace);
 				return default(T);

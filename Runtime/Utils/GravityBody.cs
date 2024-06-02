@@ -18,7 +18,7 @@ public class GravityBody : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if( attractor )
+		if (attractor)
 		{
 			attractor.Attract(rigidBody);
 		}

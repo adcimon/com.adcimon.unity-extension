@@ -8,12 +8,12 @@ public class Look : MonoBehaviour
 
 	private void Update()
 	{
-		if( !target )
+		if (!target)
 		{
 			return;
 		}
 
-		if( !smooth )
+		if (!smooth)
 		{
 			transform.LookAt(target);
 		}

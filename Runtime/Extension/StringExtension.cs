@@ -6,7 +6,7 @@ public static class StringExtension
 	/// <summary>
 	/// Indicates whether the specified string is null or an empty string.
 	/// </summary>
-	public static bool IsNullOrEmpty( this string str )
+	public static bool IsNullOrEmpty(this string str)
 	{
 		return string.IsNullOrEmpty(str);
 	}
@@ -14,7 +14,7 @@ public static class StringExtension
 	/// <summary>
 	/// Replaces each format item in the string with the specified text equivalent of a corresponding object's value.
 	/// </summary>
-	public static string Format( this string str, params object[] args )
+	public static string Format(this string str, params object[] args)
 	{
 		return string.Format(str, args);
 	}
@@ -22,7 +22,7 @@ public static class StringExtension
 	/// <summary>
 	/// Adds a color tag to the specified string.
 	/// </summary>
-	public static string Color( this string str, Color color )
+	public static string Color(this string str, Color color)
 	{
 		string hex = ColorUtility.ToHtmlStringRGBA(color);
 		return "<color=#" + hex + ">" + str + "</color>";
@@ -31,7 +31,7 @@ public static class StringExtension
 	/// <summary>
 	/// Adds a bold tag to the specified string.
 	/// </summary>
-	public static string Bold( this string str )
+	public static string Bold(this string str)
 	{
 		return "<b>" + str + "</b>";
 	}
@@ -39,7 +39,7 @@ public static class StringExtension
 	/// <summary>
 	/// Adds an italic tag to the specified string.
 	/// </summary>
-	public static string Italic( this string str )
+	public static string Italic(this string str)
 	{
 		return "<i>" + str + "</i>";
 	}
@@ -47,9 +47,9 @@ public static class StringExtension
 	/// <summary>
 	/// Returns whether the specified string is an email.
 	/// </summary>
-	public static bool IsEmail( this string str )
+	public static bool IsEmail(this string str)
 	{
-		if( string.IsNullOrEmpty(str) )
+		if (string.IsNullOrEmpty(str))
 		{
 			return false;
 		}

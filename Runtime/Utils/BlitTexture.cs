@@ -12,19 +12,19 @@ public class BlitTexture : MonoBehaviour
 
 	private void Update()
 	{
-		if( !inputTexture )
+		if (!inputTexture)
 		{
 			return;
 		}
 
-		if( !outputTexture || inputTexture.width != outputTexture.width || inputTexture.height != outputTexture.height )
+		if (!outputTexture || inputTexture.width != outputTexture.width || inputTexture.height != outputTexture.height)
 		{
 			outputTexture = new RenderTexture(inputTexture.width, inputTexture.height, 0);
 			onOutputTexture?.Invoke(outputTexture);
 		}
 
 		RenderTexture.active = outputTexture;
-		if( material )
+		if (material)
 		{
 			Graphics.Blit(inputTexture, outputTexture, material, pass);
 		}
@@ -44,7 +44,7 @@ public class BlitTexture : MonoBehaviour
 	/// </summary>
 	private void Release()
 	{
-		if( outputTexture )
+		if (outputTexture)
 		{
 			outputTexture.Release();
 			outputTexture = null;

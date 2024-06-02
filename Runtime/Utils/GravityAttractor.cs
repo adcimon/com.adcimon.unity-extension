@@ -4,7 +4,7 @@ public class GravityAttractor : MonoBehaviour
 {
 	public float gravity = -9.8f;
 
-	public void Attract( Rigidbody body )
+	public void Attract(Rigidbody body)
 	{
 		Vector3 gravityUp = (body.position - transform.position).normalized;
 		Vector3 localUp = body.transform.up;
@@ -14,5 +14,5 @@ public class GravityAttractor : MonoBehaviour
 
 		// Align local up axis with the center of the planet.
 		body.rotation = Quaternion.FromToRotation(localUp, gravityUp) * body.rotation;
-	}  
+	}
 }

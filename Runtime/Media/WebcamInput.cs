@@ -23,7 +23,7 @@ public class WebcamInput : MonoBehaviour
 
 	private void Start()
 	{
-		if( playOnStart )
+		if (playOnStart)
 		{
 			Play();
 		}
@@ -31,9 +31,9 @@ public class WebcamInput : MonoBehaviour
 
 	private void Update()
 	{
-		if( inputTexture && inputTexture.isPlaying && inputTexture.didUpdateThisFrame )
+		if (inputTexture && inputTexture.isPlaying && inputTexture.didUpdateThisFrame)
 		{
-			if( state == State.Initializing )
+			if (state == State.Initializing)
 			{
 				width = inputTexture.width;
 				height = inputTexture.height;
@@ -43,7 +43,7 @@ public class WebcamInput : MonoBehaviour
 				state = State.Playing;
 			}
 
-			if( !outputTexture )
+			if (!outputTexture)
 			{
 				outputTexture = new RenderTexture(inputTexture.width, inputTexture.height, 0);
 				onOutputTexture?.Invoke(outputTexture);
@@ -64,7 +64,7 @@ public class WebcamInput : MonoBehaviour
 	/// </summary>
 	public bool Play()
 	{
-		if( state != State.Stopped )
+		if (state != State.Stopped)
 		{
 			return false;
 		}
@@ -79,7 +79,7 @@ public class WebcamInput : MonoBehaviour
 
 			return true;
 		}
-		catch( Exception exception )
+		catch (Exception exception)
 		{
 			Debug.Log(exception.Message);
 			return false;
@@ -91,7 +91,7 @@ public class WebcamInput : MonoBehaviour
 	/// </summary>
 	public bool Stop()
 	{
-		if( state == State.Stopped )
+		if (state == State.Stopped)
 		{
 			return false;
 		}
@@ -106,9 +106,9 @@ public class WebcamInput : MonoBehaviour
 	/// <summary>
 	/// Blit a source texture into the destination render texture with aspect ratio compensation.
 	/// </summary>
-	private void Blit( Texture source, RenderTexture destination, bool horizontalFlip = false, bool verticalFlip = false )
+	private void Blit(Texture source, RenderTexture destination, bool horizontalFlip = false, bool verticalFlip = false)
 	{
-		if( source == null || destination == null )
+		if (source == null || destination == null)
 		{
 			return;
 		}
@@ -118,11 +118,11 @@ public class WebcamInput : MonoBehaviour
 
 		Vector2 scale = new Vector2(aspect2 / aspect1, aspect1 / aspect2);
 		scale = Vector2.Min(Vector2.one, scale);
-		if( horizontalFlip )
+		if (horizontalFlip)
 		{
 			scale.x *= -1;
 		}
-		if( verticalFlip )
+		if (verticalFlip)
 		{
 			scale.y *= -1;
 		}
@@ -144,12 +144,12 @@ public class WebcamInput : MonoBehaviour
 	/// <summary>
 	/// Is the device a webcam?
 	/// </summary>
-	private bool IsWebcam( string deviceName )
+	private bool IsWebcam(string deviceName)
 	{
-		for( int i = 0; i < WebCamTexture.devices.Length; i++ )
+		for (int i = 0; i < WebCamTexture.devices.Length; i++)
 		{
 			WebCamDevice device = WebCamTexture.devices[i];
-			if( device.name.Equals(deviceName) )
+			if (device.name.Equals(deviceName))
 			{
 				return true;
 			}
@@ -163,13 +163,13 @@ public class WebcamInput : MonoBehaviour
 	/// </summary>
 	private void Release()
 	{
-		if( inputTexture )
+		if (inputTexture)
 		{
 			inputTexture.Stop();
 			inputTexture = null;
 		}
 
-		if( outputTexture )
+		if (outputTexture)
 		{
 			outputTexture.Release();
 			outputTexture = null;

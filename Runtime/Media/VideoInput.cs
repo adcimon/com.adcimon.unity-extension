@@ -26,7 +26,7 @@ public class VideoInput : MonoBehaviour
 
 	private void Start()
 	{
-		if( playOnStart )
+		if (playOnStart)
 		{
 			Play();
 		}
@@ -47,7 +47,7 @@ public class VideoInput : MonoBehaviour
 		videoPlayer.SetTargetAudioSource(0, audioSource);
 		videoPlayer.Prepare();
 
-		while( !videoPlayer.isPrepared )
+		while (!videoPlayer.isPrepared)
 		{
 			yield return null;
 		}
@@ -62,7 +62,7 @@ public class VideoInput : MonoBehaviour
 
 		Debug.Log("Playing video " + videoPlayer.clip.originalPath + " of " + videoPlayer.clip.width + "x" + videoPlayer.clip.height);
 
-		if( outputTexture )
+		if (outputTexture)
 		{
 			outputTexture.Release();
 			outputTexture = null;
@@ -72,7 +72,7 @@ public class VideoInput : MonoBehaviour
 		videoPlayer.targetTexture = outputTexture;
 		onOutputTexture?.Invoke(outputTexture);
 
-		while( videoPlayer.isPlaying )
+		while (videoPlayer.isPlaying)
 		{
 			yield return null;
 		}
@@ -83,13 +83,13 @@ public class VideoInput : MonoBehaviour
 	/// </summary>
 	public void Play()
 	{
-		if( !videoPlayer.clip )
+		if (!videoPlayer.clip)
 		{
 			Debug.LogError("Video clip not found");
 			return;
 		}
 
-		if( !videoPlayer.isPrepared )
+		if (!videoPlayer.isPrepared)
 		{
 			StartCoroutine(PrepareCoroutine());
 		}
@@ -122,7 +122,7 @@ public class VideoInput : MonoBehaviour
 	/// </summary>
 	private void Release()
 	{
-		if( outputTexture )
+		if (outputTexture)
 		{
 			outputTexture.Release();
 			outputTexture = null;

@@ -24,7 +24,7 @@ public struct Matrix3x3
 	public float m12;
 	public float m22;
 
-	public Matrix3x3( float m00, float m01, float m02, float m10, float m11, float m12, float m20, float m21, float m22 )
+	public Matrix3x3(float m00, float m01, float m02, float m10, float m11, float m12, float m20, float m21, float m22)
 	{
 		this.m00 = m00;
 		this.m01 = m01;
@@ -37,7 +37,7 @@ public struct Matrix3x3
 		this.m22 = m22;
 	}
 
-	public Matrix3x3( Matrix3x3 m )
+	public Matrix3x3(Matrix3x3 m)
 	{
 		m00 = m.m00;
 		m10 = m.m10;
@@ -50,7 +50,7 @@ public struct Matrix3x3
 		m22 = m.m22;
 	}
 
-	public Matrix3x3( Vector3 column0, Vector3 column1, Vector3 column2 )
+	public Matrix3x3(Vector3 column0, Vector3 column1, Vector3 column2)
 	{
 		this.m00 = column0.x; this.m01 = column1.x; this.m02 = column2.x;
 		this.m10 = column0.y; this.m11 = column1.y; this.m12 = column2.y;
@@ -60,7 +60,7 @@ public struct Matrix3x3
 	/// <summary>
 	/// Access element at [row, column].
 	/// </summary>
-	public float this[ int row, int column ]
+	public float this[int row, int column]
 	{
 		get
 		{
@@ -76,11 +76,11 @@ public struct Matrix3x3
 	/// <summary>
 	/// Access element at sequential index (0..8 inclusive).
 	/// </summary>
-	public float this[ int index ]
+	public float this[int index]
 	{
 		get
 		{
-			switch( index )
+			switch (index)
 			{
 				case 0: return m00;
 				case 1: return m10;
@@ -97,7 +97,7 @@ public struct Matrix3x3
 
 		set
 		{
-			switch( index )
+			switch (index)
 			{
 				case 0: m00 = value; break;
 				case 1: m10 = value; break;
@@ -117,9 +117,9 @@ public struct Matrix3x3
 	/// <summary>
 	/// Returns a row of the matrix.
 	/// </summary>
-	public Vector3 GetRow( int index )
+	public Vector3 GetRow(int index)
 	{
-		switch( index )
+		switch (index)
 		{
 			case 0: return new Vector3(m00, m01, m02);
 			case 1: return new Vector3(m10, m11, m12);
@@ -131,9 +131,9 @@ public struct Matrix3x3
 	/// <summary>
 	/// Get a column of the matrix.
 	/// </summary>
-	public Vector4 GetColumn( int index )
+	public Vector4 GetColumn(int index)
 	{
-		switch( index )
+		switch (index)
 		{
 			case 0: return new Vector3(m00, m10, m20);
 			case 1: return new Vector3(m01, m11, m21);
@@ -145,7 +145,7 @@ public struct Matrix3x3
 	/// <summary>
 	/// Sets a row of the matrix.
 	/// </summary>
-	public void SetRow( int index, Vector3 row )
+	public void SetRow(int index, Vector3 row)
 	{
 		this[index, 0] = row.x;
 		this[index, 1] = row.y;
@@ -155,7 +155,7 @@ public struct Matrix3x3
 	/// <summary>
 	/// Sets a column of the matrix.
 	/// </summary>
-	public void SetColumn( int index, Vector3 column )
+	public void SetColumn(int index, Vector3 column)
 	{
 		this[0, index] = column.x;
 		this[1, index] = column.y;
@@ -199,7 +199,7 @@ public struct Matrix3x3
 	{
 		float determinant = this.determinant;
 
-		if( determinant == 0 )
+		if (determinant == 0)
 		{
 			throw new UnityException("Can't invert matrix with determinant 0.");
 		}
@@ -254,7 +254,7 @@ public struct Matrix3x3
 	/// <summary>
 	/// Transforms a position by this matrix.
 	/// </summary>
-	public Vector2 MultiplyVector2( Vector2 v )
+	public Vector2 MultiplyVector2(Vector2 v)
 	{
 		Vector2 output = new Vector2();
 
@@ -267,7 +267,7 @@ public struct Matrix3x3
 	/// <summary>
 	/// Transforms a position by this matrix.
 	/// </summary>
-	public Vector3 MultiplyVector3( Vector3 v )
+	public Vector3 MultiplyVector3(Vector3 v)
 	{
 		Vector3 output = new Vector3();
 
@@ -281,7 +281,7 @@ public struct Matrix3x3
 	/// <summary>
 	/// Multiply a matrix by this matrix.
 	/// </summary>
-	public Matrix3x3 MultiplyMatrix3x3( Matrix3x3 m )
+	public Matrix3x3 MultiplyMatrix3x3(Matrix3x3 m)
 	{
 		Matrix3x3 output = new Matrix3x3();
 
@@ -298,17 +298,17 @@ public struct Matrix3x3
 		return output;
 	}
 
-	public static Vector2 operator *( Matrix3x3 m, Vector2 v )
+	public static Vector2 operator *(Matrix3x3 m, Vector2 v)
 	{
 		return m.MultiplyVector2(v);
 	}
 
-	public static Vector3 operator *( Matrix3x3 m, Vector3 v )
+	public static Vector3 operator *(Matrix3x3 m, Vector3 v)
 	{
 		return m.MultiplyVector3(v);
 	}
 
-	public static Matrix3x3 operator *( Matrix3x3 m1, Matrix3x3 m2 )
+	public static Matrix3x3 operator *(Matrix3x3 m1, Matrix3x3 m2)
 	{
 		return m1.MultiplyMatrix3x3(m2);
 	}
@@ -321,9 +321,9 @@ public struct Matrix3x3
 		return GetColumn(0).GetHashCode() ^ (GetColumn(1).GetHashCode() << 2) ^ (GetColumn(2).GetHashCode() >> 2);
 	}
 
-	public override bool Equals( object other )
+	public override bool Equals(object other)
 	{
-		if( !(other is Matrix3x3) )
+		if (!(other is Matrix3x3))
 		{
 			return false;
 		}
@@ -331,7 +331,7 @@ public struct Matrix3x3
 		return Equals((Matrix3x3)other);
 	}
 
-	public bool Equals( Matrix3x3 other )
+	public bool Equals(Matrix3x3 other)
 	{
 		return GetColumn(0).Equals(other.GetColumn(0))
 			&& GetColumn(1).Equals(other.GetColumn(1))
@@ -346,7 +346,7 @@ public struct Matrix3x3
 	/// <summary>
 	/// Creates a translation matrix.
 	/// </summary>
-	public static Matrix3x3 Translate( Vector2 translation )
+	public static Matrix3x3 Translate(Vector2 translation)
 	{
 		Matrix3x3 output = new Matrix3x3();
 
@@ -362,7 +362,7 @@ public struct Matrix3x3
 	/// <summary>
 	/// Creates a rotation matrix (rotation is expressed as euler angles).
 	/// </summary>
-	public static Matrix3x3 Rotate( float rotation )
+	public static Matrix3x3 Rotate(float rotation)
 	{
 		float cos = Mathf.Cos(rotation * Mathf.Deg2Rad);
 		float sin = Mathf.Sin(rotation * Mathf.Deg2Rad);
@@ -381,7 +381,7 @@ public struct Matrix3x3
 	/// <summary>
 	/// Creates a scaling matrix.
 	/// </summary>
-	public static Matrix3x3 Scale( Vector2 scale )
+	public static Matrix3x3 Scale(Vector2 scale)
 	{
 		Matrix3x3 output = new Matrix3x3();
 
@@ -395,7 +395,7 @@ public struct Matrix3x3
 	/// <summary>
 	/// Creates a translation, rotation and scaling matrix (rotation is expressed as euler angles).
 	/// </summary>
-	public static Matrix3x3 TRS( Vector2 translation, float rotation, Vector2 scale )
+	public static Matrix3x3 TRS(Vector2 translation, float rotation, Vector2 scale)
 	{
 		float cos = Mathf.Cos(rotation * Mathf.Deg2Rad);
 		float sin = Mathf.Sin(rotation * Mathf.Deg2Rad);

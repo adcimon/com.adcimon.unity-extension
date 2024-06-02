@@ -9,9 +9,9 @@ public class DestroyObject : MonoBehaviour
 
 	private void Start()
 	{
-		if( runOnStart )
+		if (runOnStart)
 		{
-			if( autoDestroy )
+			if (autoDestroy)
 			{
 				AutoDestroy();
 			}
@@ -24,7 +24,7 @@ public class DestroyObject : MonoBehaviour
 
 	public void Destroy()
 	{
-		if( !target )
+		if (!target)
 		{
 			return;
 		}

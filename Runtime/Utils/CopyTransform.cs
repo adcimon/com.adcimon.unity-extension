@@ -9,22 +9,22 @@ public class CopyTransform : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		if( !target )
+		if (!target)
 		{
 			return;
 		}
 
-		if( position )
+		if (position)
 		{
 			gameObject.transform.position = target.position;
 		}
 
-		if( rotation )
+		if (rotation)
 		{
 			gameObject.transform.rotation = target.rotation;
 		}
 
-		if( scale )
+		if (scale)
 		{
 			gameObject.transform.localScale = target.lossyScale;
 		}

@@ -19,13 +19,13 @@ public class Timer : MonoBehaviour
 
 	private void Update()
 	{
-		if( state != State.Playing )
+		if (state != State.Playing)
 		{
 			return;
 		}
 
 		elapsedTime += (unscaled) ? Time.unscaledDeltaTime : Time.deltaTime;
-		if( elapsedTime >= time )
+		if (elapsedTime >= time)
 		{
 			state = State.Stopped;
 
@@ -35,7 +35,7 @@ public class Timer : MonoBehaviour
 
 	public void Play()
 	{
-		if( state == State.Playing )
+		if (state == State.Playing)
 		{
 			return;
 		}
@@ -53,7 +53,7 @@ public class Timer : MonoBehaviour
 
 	public void Resume()
 	{
-		if( state == State.Paused )
+		if (state == State.Paused)
 		{
 			state = State.Playing;
 		}

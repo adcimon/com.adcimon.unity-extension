@@ -31,17 +31,17 @@ public class FadeCanvasGroup : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		if( !running )
+		if (!running)
 		{
 			return;
 		}
 
 		elapsedTime += Time.deltaTime;
-		if( elapsedTime >= time )
+		if (elapsedTime >= time)
 		{
 			running = false;
 
-			if( fade )
+			if (fade)
 			{
 				canvasGroup.alpha = 0;
 				canvasGroup.interactable = false;
@@ -67,7 +67,7 @@ public class FadeCanvasGroup : MonoBehaviour
 
 	public void FadeIn()
 	{
-		if( running || canvasGroup.alpha == 1 )
+		if (running || canvasGroup.alpha == 1)
 		{
 			return;
 		}
@@ -83,7 +83,7 @@ public class FadeCanvasGroup : MonoBehaviour
 
 	public void FadeOut()
 	{
-		if( running || canvasGroup.alpha == 0 )
+		if (running || canvasGroup.alpha == 0)
 		{
 			return;
 		}
@@ -99,18 +99,18 @@ public class FadeCanvasGroup : MonoBehaviour
 
 	public void Fade()
 	{
-		if( running )
+		if (running)
 		{
 			return;
 		}
 
-		if( canvasGroup.alpha == 0 )
+		if (canvasGroup.alpha == 0)
 		{
 			FadeIn();
 			return;
 		}
 
-		if( canvasGroup.alpha == 1 )
+		if (canvasGroup.alpha == 1)
 		{
 			FadeOut();
 			return;

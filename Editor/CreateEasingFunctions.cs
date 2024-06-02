@@ -61,7 +61,7 @@ public class CreateEasingFunctions
 		AddCurve(scriptableObject, EasingFunctions.Elastic.OutIn, 30, "Elastic OutIn");
 		AddCurve(scriptableObject, EasingFunctions.Bounce.OutIn, 30, "Bounce OutIn");
 
-		if( !AssetDatabase.IsValidFolder("Assets/Editor") )
+		if (!AssetDatabase.IsValidFolder("Assets/Editor"))
 		{
 			AssetDatabase.CreateFolder("Assets", "Editor");
 		}
@@ -71,10 +71,10 @@ public class CreateEasingFunctions
 		AssetDatabase.Refresh();
 	}
 
-	private static AnimationCurve GenerateCurve( EasingFunction easingFunction, int resolution )
+	private static AnimationCurve GenerateCurve(EasingFunction easingFunction, int resolution)
 	{
 		AnimationCurve curve = new AnimationCurve();
-		for( int i = 0; i < resolution; i++ )
+		for (int i = 0; i < resolution; i++)
 		{
 			float time = i / (resolution - 1f);
 			float value = easingFunction(time, 0, 1, 1);
@@ -82,7 +82,7 @@ public class CreateEasingFunctions
 			curve.AddKey(key);
 		}
 
-		for( int i = 0; i < resolution; i++ )
+		for (int i = 0; i < resolution; i++)
 		{
 			curve.SmoothTangents(i, 0);
 		}
@@ -90,7 +90,7 @@ public class CreateEasingFunctions
 		return curve;
 	}
 
-	private static void AddCurve( ScriptableObject scriptableObject, EasingFunction easingFunction, int resolution, string name )
+	private static void AddCurve(ScriptableObject scriptableObject, EasingFunction easingFunction, int resolution, string name)
 	{
 		Type curvePresetLibraryType = Type.GetType("UnityEditor.CurvePresetLibrary, UnityEditor");
 		MethodInfo addMehtod = curvePresetLibraryType.GetMethod("Add");

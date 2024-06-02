@@ -5,9 +5,9 @@ public static class ArrayExtension
 	/// <summary>
 	/// Gets the sub array of the specified array.
 	/// </summary>
-	public static T[] SubArray<T>( this T[] array, int from, int to, bool inclusive = true )
+	public static T[] SubArray<T>(this T[] array, int from, int to, bool inclusive = true)
 	{
-		if( array == null || from < 0 || to > array.Length || from > to )
+		if (array == null || from < 0 || to > array.Length || from > to)
 		{
 			return null;
 		}
@@ -16,7 +16,7 @@ public static class ArrayExtension
 		int length;
 		try
 		{
-			if( inclusive )
+			if (inclusive)
 			{
 				length = to - from + 1;
 				subArray = new T[length];

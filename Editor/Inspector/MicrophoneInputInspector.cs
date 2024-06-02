@@ -14,7 +14,7 @@ public class MicrophoneInputInspector : Editor
 	public override void OnInspectorGUI()
 	{
 		Rect rect = EditorGUILayout.GetControlRect(false);
-		if( EditorGUI.DropdownButton(rect, new GUIContent("Select Microphone"), FocusType.Keyboard) )
+		if (EditorGUI.DropdownButton(rect, new GUIContent("Select Microphone"), FocusType.Keyboard))
 		{
 			DrawWebcamMenu(rect);
 		}
@@ -22,11 +22,11 @@ public class MicrophoneInputInspector : Editor
 		DrawDefaultInspector();
 	}
 
-	private void DrawWebcamMenu( Rect rect )
+	private void DrawWebcamMenu(Rect rect)
 	{
 		GenericMenu menu = new GenericMenu();
 
-		foreach( string device in Microphone.devices )
+		foreach (string device in Microphone.devices)
 		{
 			menu.AddItem(new GUIContent(device), false, () => ChangeWebcam(device));
 		}
@@ -34,7 +34,7 @@ public class MicrophoneInputInspector : Editor
 		menu.DropDown(rect);
 	}
 
-	private void ChangeWebcam( string name )
+	private void ChangeWebcam(string name)
 	{
 		serializedObject.Update();
 		script.device = name;

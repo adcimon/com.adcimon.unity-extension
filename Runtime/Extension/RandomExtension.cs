@@ -22,7 +22,7 @@ public static class RandomExtension
 	/// <summary>
 	/// Returns the integer with a random sign.
 	/// </summary>
-	public static int RandomSign( this int i )
+	public static int RandomSign(this int i)
 	{
 		return i * (Random.value <= 0.5f ? 1 : -1);
 	}
@@ -30,7 +30,7 @@ public static class RandomExtension
 	/// <summary>
 	/// Returns the float with a random sign.
 	/// </summary>
-	public static float RandomSign( this float f )
+	public static float RandomSign(this float f)
 	{
 		return f * (Random.value <= 0.5f ? 1f : -1f);
 	}
@@ -38,9 +38,9 @@ public static class RandomExtension
 	/// <summary>
 	/// Picks a random object contained in the array.
 	/// </summary>
-	public static T PickRandom<T>( params T[] array )
+	public static T PickRandom<T>(params T[] array)
 	{
-		if( array.Length == 0 )
+		if (array.Length == 0)
 		{
 			return default(T);
 		}
@@ -51,9 +51,9 @@ public static class RandomExtension
 	/// <summary>
 	/// Picks a random object contained in the list.
 	/// </summary>
-	public static T PickRandom<T>( this IList<T> list )
+	public static T PickRandom<T>(this IList<T> list)
 	{
-		if( list.Count == 0 )
+		if (list.Count == 0)
 		{
 			return default(T);
 		}
@@ -64,9 +64,9 @@ public static class RandomExtension
 	/// <summary>
 	/// Pops a random object contained in the list.
 	/// </summary>
-	public static T PopRandom<T>( this IList<T> list )
+	public static T PopRandom<T>(this IList<T> list)
 	{
-		if( list.Count == 0 )
+		if (list.Count == 0)
 		{
 			return default(T);
 		}
@@ -81,9 +81,9 @@ public static class RandomExtension
 	/// <summary>
 	/// Shuffles the array.
 	/// </summary>
-	public static void Shuffle<T>( this T[] array )
+	public static void Shuffle<T>(this T[] array)
 	{
-		for( int i = array.Length - 1; i > 0; i-- )
+		for (int i = array.Length - 1; i > 0; i--)
 		{
 			int j = Random.Range(0, i);
 			T temp = array[i];
@@ -95,9 +95,9 @@ public static class RandomExtension
 	/// <summary>
 	/// Shuffles the list.
 	/// </summary>
-	public static void Shuffle<T>( this IList<T> list )
+	public static void Shuffle<T>(this IList<T> list)
 	{
-		for( int i = list.Count - 1; i > 0; i-- )
+		for (int i = list.Count - 1; i > 0; i--)
 		{
 			int j = Random.Range(0, i);
 			T temp = list[i];

@@ -15,18 +15,18 @@ public class Follow : MonoBehaviour
 
 	private void Update()
 	{
-		if( !target )
+		if (!target)
 		{
 			return;
 		}
 
-		if( rigidBody && !rigidBody.isKinematic )
+		if (rigidBody && !rigidBody.isKinematic)
 		{
 			return;
 		}
 
 		float distance = Vector3.Distance(transform.position, target.position);
-		if( distance <= offset )
+		if (distance <= offset)
 		{
 			return;
 		}
@@ -37,18 +37,18 @@ public class Follow : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		if( !target )
+		if (!target)
 		{
 			return;
 		}
 
-		if( !rigidBody || rigidBody.isKinematic )
+		if (!rigidBody || rigidBody.isKinematic)
 		{
 			return;
 		}
 
 		float distance = Vector3.Distance(transform.position, target.position);
-		if( distance <= offset )
+		if (distance <= offset)
 		{
 			return;
 		}

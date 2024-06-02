@@ -18,20 +18,20 @@ public class DrawTexture : MonoBehaviour
 
 	private void Update()
 	{
-		if( !texture )
+		if (!texture)
 		{
 			return;
 		}
 
 		float aspectRatio = (float)texture.width / (float)texture.height;
 		aspectRatio = (float)(Math.Truncate((double)aspectRatio * 100.0) / 100.0);
-		if( fitter.aspectRatio != aspectRatio )
+		if (fitter.aspectRatio != aspectRatio)
 		{
 			fitter.aspectRatio = aspectRatio;
 		}
 	}
 
-	public void SetTexture( Texture texture )
+	public void SetTexture(Texture texture)
 	{
 		this.texture = texture;
 		image.color = Color.white;
@@ -39,7 +39,7 @@ public class DrawTexture : MonoBehaviour
 		image.SetMaterialDirty();
 	}
 
-	public void SetTexture( Texture2D texture )
+	public void SetTexture(Texture2D texture)
 	{
 		this.texture = texture;
 		image.color = Color.white;
@@ -47,7 +47,7 @@ public class DrawTexture : MonoBehaviour
 		image.SetMaterialDirty();
 	}
 
-	public void SetTexture( RenderTexture texture )
+	public void SetTexture(RenderTexture texture)
 	{
 		this.texture = texture;
 		image.color = Color.white;

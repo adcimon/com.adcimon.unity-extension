@@ -16,7 +16,7 @@ public class MicrophoneInput : MonoBehaviour
 
 	private void Start()
 	{
-		if( playOnStart )
+		if (playOnStart)
 		{
 			Play();
 		}
@@ -27,12 +27,12 @@ public class MicrophoneInput : MonoBehaviour
 	/// </summary>
 	public void Play()
 	{
-		if( Microphone.IsRecording(device) )
+		if (Microphone.IsRecording(device))
 		{
 			Microphone.End(device);
 		}
 
-		if( !Contains(Microphone.devices, device) )
+		if (!Contains(Microphone.devices, device))
 		{
 			device = Microphone.devices[0];
 		}
@@ -49,7 +49,7 @@ public class MicrophoneInput : MonoBehaviour
 	/// </summary>
 	public void Stop()
 	{
-		if( Microphone.IsRecording(device) )
+		if (Microphone.IsRecording(device))
 		{
 			Microphone.End(device);
 		}
@@ -62,11 +62,11 @@ public class MicrophoneInput : MonoBehaviour
 		audioSource.Play();
 	}
 
-	private bool Contains( string[] array, string str )
+	private bool Contains(string[] array, string str)
 	{
-		for( int i = 0; i < array.Length; i++ )
+		for (int i = 0; i < array.Length; i++)
 		{
-			if( array[i].Equals(str) )
+			if (array[i].Equals(str))
 			{
 				return true;
 			}
